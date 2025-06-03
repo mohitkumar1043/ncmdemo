@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<display-name>Spring Web MVC Application</display-name>
+
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<load-on-startup>1</load-on-startup>
+
+		<multipart-config>
+			<location>C:/temp</location> <!-- Make sure this folder exists -->
+			<max-file-size>5242880</max-file-size> <!-- 5MB -->
+			<max-request-size>20971520</max-request-size> <!-- 20MB -->
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout> <!-- in minutes -->
+	</session-config>
+
+
+</web-app>
