@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0);     // Proxies
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -142,8 +147,7 @@ body {
 			<c:forEach var="product" items="${products}">
 				<div class="product">
 					<img
-						src="${pageContext.request.contextPath}/product-images/${product.imgurl}"
-						alt="${product.name}" width="150" height="150" />
+						src="${product.imgurl}"alt="${product.name}" width="150" height="150" />
 					<p>${product.name}</p>
 					<p class="old-price">₹${product.price}</p>
 					<p class="price">₹${product.discountprice}
@@ -158,7 +162,13 @@ body {
 			onclick="window.open('https://www.google.com/maps/dir/?api=1&origin=${ulatitude},${ulongitude}&destination=${slatitude},${slongitude}&travelmode=driving','_self')">
 			Get Shop Location</button>
 	</div>
-
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            location.reload(); // Force refresh from server
+        }
+    });
+</script>
 </body>
 </html>
 

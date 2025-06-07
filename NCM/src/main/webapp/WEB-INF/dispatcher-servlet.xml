@@ -30,6 +30,5 @@
 	</bean>
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
-	<mvc:resources mapping="/product-images/**"
-		location="file:///C:/Users/mohit/Desktop/NcmProudctImeges/" />
+	
 </beans>

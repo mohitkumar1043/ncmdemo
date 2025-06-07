@@ -1,7 +1,6 @@
 package dao;
 
 import java.math.BigDecimal;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -86,8 +85,8 @@ public ArrayList<String>getEmail(String search){
 	             p.setPrice(rs.getBigDecimal("productPrice"));
 	             p.setDiscountOffer(rs.getBigDecimal("discountOffer"));
 	             String fullPath=rs.getString("productImageUrl");
-	             String filename = Paths.get(fullPath).getFileName().toString();
-	             p.setImgurl(filename);
+	             
+	             p.setImgurl(fullPath);
 	             BigDecimal discountOffer = rs.getBigDecimal("discountOffer"); 
 	             BigDecimal productPrice = rs.getBigDecimal("productPrice");
 	             BigDecimal discountAmount = productPrice.multiply(discountOffer).divide(BigDecimal.valueOf(100));

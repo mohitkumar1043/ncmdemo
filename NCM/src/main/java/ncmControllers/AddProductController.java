@@ -1,11 +1,13 @@
 package ncmControllers;
 
-
+import java.io.InputStream;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import dao.ProductDao;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,9 +31,6 @@ import model.Product;
 
 @Controller
 public class AddProductController {
-	 private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\mohit\\Desktop\\NcmProudctImeges\\";
-	 
-	 
 	 @PostMapping("/AddProduct")
 	    public String addProduct( @RequestParam("name") String productName,
                 @RequestParam("price") String priceStr,
@@ -57,28 +59,40 @@ public class AddProductController {
           
 	        }
 		 try {
-			// Ensure directory exists
-	            File dir = new File(IMAGE_UPLOAD_DIR);
-	            if (!dir.exists()) dir.mkdirs();
-	            
 	         // Original image
 	            BufferedImage originalImage = ImageIO.read(imageFile.getInputStream());
 	         // Resize with padding (not crop)
 	            BufferedImage resizedImage = resizeWithPadding(originalImage, 300, 300);
 	            
-	         // Generate unique filename
-	            String fileName = UUID.randomUUID() + "_" + imageFile.getOriginalFilename();
-	            File outputFile = new File(IMAGE_UPLOAD_DIR + fileName);
+	         // Convert to InputStream
+	            ByteArrayOutputStream os = new ByteArrayOutputStream();
+	            ImageIO.write(resizedImage, "png", os);
+	            
 
-	            // Save resized image as JPG or PNG
-	            ImageIO.write(resizedImage, "png", outputFile);
+	            
+	            Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+	                "cloud_name", "dncdbq7f5",
+	                "api_key", "289565295337619",
+	                "api_secret", "GOfIfqG3a8Uo9s9RdtIPEaW-eNE"
+	            ));
+
+	            Map uploadResult = cloudinary.uploader().upload(os.toByteArray(),
+	            	    ObjectUtils.asMap(
+	            	        "resource_type", "image",
+	            	        "folder", "ncm_products",
+	            	        "public_id", UUID.randomUUID().toString()
+	            	    )
+	            	);
+
+	            String imageUrl = uploadResult.get("secure_url").toString();
+
 	            Admin admin=(Admin)session.getAttribute("admin");
 	           Product p=new Product() ;
 	          p.setEmail(admin.getEmail());
 	          p.setName(productName);
 	          p.setPrice(productPrice);
 	          p.setDiscountOffer(discountOffer);
-	          p.setImgurl(outputFile.getAbsolutePath());
+	          p.setImgurl(imageUrl);
 	          ProductDao pDao=new ProductDao();
 	          boolean isSave =pDao.storeProduct(p);
 	          if (isSave) {

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+    response.setDateHeader("Expires", 0);     // Proxies
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +78,7 @@ img {
 				<td>${product.discountOffer}%</td>
 				<td>₹${product.discountprice}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/product-images/${product.imgurl}"
+					href="${product.imgurl}"
 					target="_blank">
 						<button class="image-button">View Image</button>
 				</a></td>
@@ -102,6 +107,14 @@ img {
             alert("<%=error%>");
           
     </script>
+    
 	<% } %>
+	<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            location.reload(); // Force refresh from server
+        }
+    });
+</script>
 </body>
 </html>
