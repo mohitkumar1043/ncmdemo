@@ -1,53 +1,52 @@
-# 🛍️ NCM Product Search Platform
+# 🛍️ NCM Product Search Platform (Spring MVC)
 
-A simple Spring MVC-based eCommerce web application where users can search for products and view nearby shops offering those products, sorted by proximity. Shopkeepers can register, add their products, and manage shop data securely with OTP verification and login functionality.
+A simple yet powerful Spring MVC-based web application that allows users to search for products and see nearby shops offering those products, sorted by distance. It also features OTP-based Gmail authentication for shopkeepers to manage their shops and product listings.
 
 ---
 
 ## ✨ Features
 
 ### 🔍 For Users
-- **Search Products** by name.
-- **Nearby Shops Displayed**: Sorted by distance from the user’s location (nearest first).
+- **Product Search**: Users can search for any product.
+- **Nearby Shops Display**: Search results display a list of shops offering the product, sorted by distance from the user's location (nearest first).
 - **Shop Details Page**:
   - Shop name at the top.
-  - Products with:
-    - Image
-    - Price
-    - Discounted Price
-  - **"Get Shop Location"** button that opens shop directions in **Google Maps**.
+  - Product list with:
+    - Images
+    - Original price
+    - Discounted price
+  - **Get Shop Location**: A button at the bottom that opens Google Maps with the path from user's current location to the shop.
 
 ---
 
 ### 🧾 For Shopkeepers
-- **Account Registration with OTP Verification** (Gmail-based).
-- **Login Functionality** after verification.
-- **Add Products**:
-  - Enter name, price, offer, and upload product image.
-  - Image is automatically shown in the Offer Page.
-- **Manage Products**:
-  - View product list.
-  - Add shop location.
-- **Logout** option to securely exit the session.
+- **Signup with OTP Verification**:
+  - Shopkeepers register using their Gmail address.
+  - OTP sent for verification before account creation is completed.
+- **Login System**: Secure login for verified shopkeepers.
+- **Product Management**:
+  - Add new product details including name, price, offer, and product image.
+  - Image is automatically processed and displayed in the Offer Page.
+  - View list of all added products.
+- **Shop Location Setup**: Add shop location for proximity-based search.
+- **Logout Functionality**: Simple and secure logout option.
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Layer        | Technology Used                          |
-|--------------|------------------------------------------|
-| Frontend     | JSP, HTML5, CSS, JavaScript              |
-| Backend      | Java,Spring MVC     |
-| Database     | MySQL, JDBC                              |
-| Build Tool   | Maven                                    |
-| Server       | Apache Tomcat (10.x supported)           |
-| Mail         | JavaMail API (for Gmail OTP verification)|
+- **Backend**: Java, Spring MVC,JDBC
+- **Frontend**: JSP,HTML,CSS,JavaScript
+- **Database**: MySQL
+- **Email**: JavaMail API for OTP
+- **Image Handling**: File system upload or cloud (Cloudinary)
+- **Location**: Google Maps API (for displaying directions)
 
 ---
 
-## 🛠️ How to Run the Project
+## 🛠️ Setup Instructions
 
-### 1. **Clone the Repository**
-```bash
-git clone https://github.com/mohitkumar1043/ncm.git
-cd ncm
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/<your-username>/ncm.git
+   cd ncm
