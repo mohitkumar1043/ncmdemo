@@ -21,7 +21,7 @@ import model.Admin;
 @Controller
 public class OtpController {
 	private static final String SENDER_EMAIL = "mohitsaini12943@gmail.com";
-    private static final String SENDER_PASSWORD = "prvjfxjdboizwvnq";
+    private static final String SENDER_PASSWORD = "";
 
     @GetMapping("/sendOtp")
     @ResponseBody
