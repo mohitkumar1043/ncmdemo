@@ -19,9 +19,9 @@ public class RemoveProductController {
 		try {
 		String publicId = imageName.substring(imageName.indexOf("/ncm_products/") + 1, imageName.lastIndexOf(".png"));
 		 Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-	                "cloud_name", "dncdbq7f5",
-	                "api_key", "289565295337619",
-	                "api_secret", "GOfIfqG3a8Uo9s9RdtIPEaW-eNE"
+	                "cloud_name", "",
+	                "api_key", "",
+	                "api_secret", ""
 	            ));
 		 
 		Map result = cloudinary.uploader().destroy(publicId,
